@@ -1,6 +1,7 @@
-FROM rust:alpine
+FROM rust:alpine AS builder
 
 WORKDIR /app
 COPY src /src
-COPY Cargo.toml /src/
+COPY Cargo.toml .
+
 

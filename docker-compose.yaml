@@ -1,8 +1,30 @@
+volumes:
+  front-vol: 
 services:
   frontend:
     container_name: frontend
     build:
       context: frontend/
-      dockerfile: Dockerfile
+      dockerfile: dev.Dockerfile
     ports:
       - "3000:3000"
+    develop:
+      watch:
+        - action: sync
+          path: frontend
+          target: /app
+          ignore: 
+          - node_modules/
+        - action: rebuild
+          path: frontend/
+          target: /app
+          ignore: 
+          - node_modules/
+
+    volumes:
+      - front-vol:/app
+      #backend:
+      #  container_name: backend
+      #  build: 
+      #    context: backend/
+      #    dockerfile: Dockerfile
